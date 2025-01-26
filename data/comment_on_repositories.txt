@@ -1,0 +1,9 @@
+Repository: https://github.com/Mohamed-Hashem24/MOD550-Mohamed
+Comments: Sensible variable names has been used. The final class is well structured:
+
+Repository: https://github.com/harry0703/MoneyPrinterTurbo
+Comments: I have checked a few .py files and they seem to have used descriptive variable names, but little to no comments in the code. The README.md is written in both chinese and english - which is great for reaching a larger audience. The folder structure is well organized:
+
+Repository: https://github.com/stanford-oval/storm
+Comments: Many of the files includes helpful comments regarding class/functions functionality. Filenames are descriptive and the folder structure is well organized. A folder named "examples" is included, which is a great way to show how the code can be used.
+
