@@ -130,6 +130,7 @@ class generate():
         x = integrated_data['x']
         y = integrated_data['y']
         print(integrated_metadata_df)
+        integrated_data.to_csv(f'../data/{'dataset_from_other_student.csv'}', index=False)
         return x, y
         # As the metadata only contain information about the file
         # and not the 2d data itself, I'll make a guess about the truth based on the .csv file
@@ -152,7 +153,6 @@ data.plot_new_data()
 data.save_dataset()
 data.save_metadata()
 data.create_txt_file()
-
 data.integrate_new_dataset()    
 
 
