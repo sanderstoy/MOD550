@@ -7,6 +7,7 @@ import matplotlib.cm as cm
 import json
 import os
 import pandas as pd
+import requests
     
 class generate():
     ''' Initialization of the class '''
@@ -18,7 +19,7 @@ class generate():
 
     def generate_data(self):
         ''' Generate data with noise '''
-        y = self.y + self.noise
+        y = self.y * self.noise
         return y
 
     def plot(self):
@@ -89,6 +90,7 @@ class generate():
                 'plot': 'plot_2.png',
                 'points': len(appended_2d),
                 'noise': list(self.noise),
+                'y-values': list(self.y)
             }
         with open('../data/metadata_plot_2.json', 'w') as f:
             json.dump(metadata, f, indent=4)
@@ -117,8 +119,32 @@ class generate():
                 f.write('Repository:' +' '+ repositories_comments[i][0] + '\n' + 'Comment: ' + repositories_comments[i][1] + '\n\n')
 
 
+    def integrate_new_dataset(self):
+        ''' Fetches data and metadata from a github repository'''
+        url_2d_data = 'https://raw.githubusercontent.com/Mohamed-Hashem24/Mohamed/refs/heads/main/MOD550/Text%20file/Appended_data_MH.csv'
+        url_metadata = 'https://raw.githubusercontent.com/Mohamed-Hashem24/Mohamed/refs/heads/main/MOD550/Metadata/Mohamed_Hashem.json'
+        integrated_data = pd.read_csv(url_2d_data)
+        response = requests.get(url_metadata)
+        integrated_metadata = response.json()
+        integrated_metadata_df = pd.DataFrame([integrated_metadata])
+        x = integrated_data['x']
+        y = integrated_data['y']
+        print(integrated_metadata_df)
+        return x, y
+        # As the metadata only contain information about the file
+        # and not the 2d data itself, I'll make a guess about the truth based on the .csv file
+        # From the contents of the dataframe, it's clear that the dataset consists of 
+        # seemingly random x-values between quite a big range (-100, 100), 
+        # while the y-values range from 10-50. The x-values seem more frequent around +/- 0.
+        # This is also confirmed by the plot. Therefore, my guess is that the student has
+        # has created an x-array of random values centered around 0 and a y-array with values 
+        # ranging from (10,50). Then, the x-array has been multiplied by an array of random values
+        # between with a similar range as x but multiplied with a constant. This is the noise that
+        # has been added to the dataset.
+
+
 # Create an instance of the class
-data = generate(150, 0.1)
+data = generate(150, 10)
 
 # Call the functions
 data.plot()
@@ -127,12 +153,27 @@ data.save_dataset()
 data.save_metadata()
 data.create_txt_file()
 
-# xy, xy_noise_truth = data.data2d()
+data.integrate_new_dataset()    
 
-# xy = np.array(xy)
-# xy_noise_truth = np.array(xy_noise_truth)
 
-# appended_2d = data.append()
+# My guess as to how the data has been generated alongside the imported data
+x_imported, y_imported = data.integrate_new_dataset()
+x = np.random.randn(500)
+y = np.linspace(10, 50, 500)
+noise = np.random.randn(500)*30
+fig, ax = plt.subplots(1,2, figsize=(20,6))
 
+ax[0].scatter(x_imported, y_imported)
+ax[0].set_title('Imported dataset')
+ax[1].scatter(x*noise,y, c='red')
+ax[1].set_title('Assumed model')
+
+for i in range(2):
+    ax[i].set_xlabel('x')
+    ax[i].set_ylabel('y')
+    ax[i].autoscale()
+    ax[i].grid()
+
+fig.savefig('../data/2d_plot_from_other_student_and_assumed_model.png', dpi=200)
 
 # %%
