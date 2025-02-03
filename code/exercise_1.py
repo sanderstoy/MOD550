@@ -98,11 +98,15 @@ class generate():
         
     def create_txt_file(self):
         ''' Two lists are created, zipped and iterated over in order to write the content to a .txt file '''
-        repositories = ['https://github.com/Mohamed-Hashem24/MOD550-Mohamed', 
+        repositories = ['https://github.com/abi/screenshot-to-code', 
                         'https://github.com/harry0703/MoneyPrinterTurbo', 
                         'https://github.com/stanford-oval/storm']
         
-        comments = ['Sensible variable names has been used. The final class is well structured:', 
+        comments = ['A bit confusing repository, but the main folder is split into backend/frontend which makes it easier'
+                    'to find what you are looking for. For the coding standards, sensible variable names seems to be used.'
+                    'The code is readable, there is spacing between the different parts of the code and they have added comments '
+                    'to explain the functionality of the code (at least in some parts). No lines of code are overly long.'
+                    'They have made use of functions to avoid repetition of code (this goes for the two other repositories as well).', 
                     
                     'I have checked a few .py files and they seem to have used descriptive variable names, '
                     'but little to no comments in the code. '
@@ -132,6 +136,7 @@ class generate():
         print(integrated_metadata_df)
         integrated_data.to_csv(f'../data/{'dataset_from_other_student.csv'}', index=False)
         return x, y
+    
         # As the metadata only contain information about the file
         # and not the 2d data itself, I'll make a guess about the truth based on the .csv file
         # From the contents of the dataframe, it's clear that the dataset consists of 

@@ -1,5 +1,5 @@
-Repository: https://github.com/Mohamed-Hashem24/MOD550-Mohamed
-Comment: Sensible variable names has been used. The final class is well structured:
+Repository: https://github.com/abi/screenshot-to-code
+Comment: A bit confusing repository, but the main folder is split into backend/frontend which makes it easierto find what you are looking for. For the coding standards, sensible variable names seems to be used.The code is readable, there is spacing between the different parts of the code and they have added comments to explain the functionality of the code (at least in some parts). No lines of code are overly long.They have made use of functions to avoid repetition of code (this goes for the two other repositories as well).
 
 Repository: https://github.com/harry0703/MoneyPrinterTurbo
 Comment: I have checked a few .py files and they seem to have used descriptive variable names, but little to no comments in the code. The README.md is written in both chinese and english - which is great for reaching a larger audience. The folder structure is well organized:
