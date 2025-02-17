@@ -51,24 +51,7 @@ class generate():
         data = np.column_stack((x, y))
         data_noise = np.column_stack((x, y_noise))
         return data, data_noise
-
-    # def plot(self):
-    #     ''' Plot the data '''
-    #     data, data_noise = self.generate_data()
-    #     color = cm.spring(np.linspace(0, 1, self.points))
-    #     plt.scatter(data[:,0], data[:,1], c=color)
-    #     plt.scatter(data_noise[:,0], data_noise[:,1], c='red')
-    #     plt.xlabel('x', c='white')
-    #     plt.ylabel('y', c='white')
-    #     plt.gca().set_facecolor('black')
-    #     plt.gcf().set_facecolor('black')
-    #     plt.xticks(color='white')
-    #     plt.yticks(color='white')
-    #     ax = plt.gca()
-    #     ax.spines['left'].set_color('white')
-    #     ax.spines['bottom'].set_color('white')
-    #     plt.grid(color='white')
-    #     plt.show()
+    
 
     def cluster(self, n_clusters):
         ''' Cluster the data '''
@@ -93,27 +76,25 @@ class generate():
         data, labels, centroids, variance = self.cluster(n_clusters)
         # plt.figure(figsize=(10, 6))
         # for i, color in zip(range(n_clusters), ['r', 'g', 'b']):
-        #     plt.scatter(data[labels == i, 0], data[labels == i, 1], c=color, label=f'Cluster {i+1}')
-        #     plt.scatter(centroids[i, 0], centroids[i, 1], s=100, c='yellow', label='Centroids')
+            # plt.scatter(data[labels == i, 0], data[labels == i, 1], c=color, label=f'Cluster {i+1}')
+            # plt.scatter(centroids[i, 0], centroids[i, 1], s=100, c='yellow', label='Centroids')
         # plt.title('K-means clustering', c='white')
         # plt.xlabel('Feature 1')
         # plt.ylabel('Feature 2')
         # plt.legend()    
-        # plt.figure()
-        # plt.scatter(range(1, n_clusters+1), variance)
+        plt.figure()
+        plt.scatter(range(1, n_clusters+1), variance)
+        plt.title('Variance of each cluster')
+        plt.xlabel('Cluster')
+        plt.ylabel('Variance')
+        plt.grid()
         plt.show()
 
 
 # Create an instance of the class
 data = generate(150, 10)
-
-# Call the functions
-# data.plot()
-
 data.plot_cluster(n_clusters = 3)
-# data.cluster(n_clusters = 3)
-
-# data.LR()
+data.cluster(n_clusters = 3)
 
 
 class NeuralNetwork(nn.Module):
@@ -169,9 +150,10 @@ def linear_regression():
     ax[1].set_ylabel("Error")
     ax[1].grid()
     ax[2].axhline(calculate_error(y_test, y_pred_lr), alpha=0.5)
-    ax[2].set_xlabel("Y (True)")
-    ax[2].set_ylabel("Y (Predicted)")
+    ax[2].set_xlabel("Epoch")
+    ax[2].set_ylabel("Error")
     ax[2].set_title("MSE, noisy test data vs predicted")
+    ax[2].grid()
     print(f'Task completed: Linear regression')
     plt.show()
 
@@ -312,7 +294,7 @@ def pinn():
     ax[0,0].set_xlabel("X")
     ax[0,0].set_ylabel("Y")
     ax[0,0].legend()
-    ax[0,0].set_title("PINN")
+    ax[0,0].set_title("PINNs Regression")
     ax[0,0].grid()
 
     ax[1,1].plot(counter, error_pinn, label="Error")
@@ -339,14 +321,11 @@ def pinn():
             ax[0,1].set_xlabel("X (Feature)")
             ax[0,1].set_ylabel("Y (Predicted)")
             ax[0,1].legend(loc='upper left', bbox_to_anchor=(1, 1))
-            ax[0,1].set_title("Neural Network Regression")
+            ax[0,1].set_title("PINNs Regression")
             ax[0,1].grid()
-
+    print('Task completed: PINNs')
     plt.show()
 
 linear_regression()
 neural_network()
 pinn()
-
-
-
