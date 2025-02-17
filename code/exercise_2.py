@@ -266,7 +266,7 @@ class PINN_model(nn.Module):
         return self.fc3(x)
     
 
-def test():
+def pinn():
     x_train, x_test, y_train, y_test, y_true_train, y_true_test = train_test()  # Train-test split
     pinn = PINN_model()
     t_physics = torch.linspace(0, 1, 30).view(-1, 1).requires_grad_(True)
@@ -346,7 +346,7 @@ def test():
 
 linear_regression()
 neural_network()
-test()
+pinn()
 
 
 
